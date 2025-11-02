@@ -1,0 +1,10 @@
+2024-01-15 10:23:45 [INFO] User logged in
+2024-01-15 10:24:12 [ERROR] Database connection failed
+2024-01-15 10:25:03 [WARNING] High memory usage
+2024-01-15 10:26:30 [INFO] Request processed successfully
+2024-01-15 10:27:15 [INFO] Cache updated
+2024-01-15 10:28:42 [WARNING] Slow query detected
+2024-01-15 10:29:10 [INFO] User session started
+2024-01-15 10:30:05 [ERROR] File not found
+2024-01-15 10:31:22 [INFO] Data synchronized
+2024-01-15 10:32:18 [WARNING] Disk space running low
