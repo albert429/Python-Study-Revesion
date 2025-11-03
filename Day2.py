@@ -221,3 +221,123 @@ def debug(func):
 
 #Test:
 #main
+
+
+#=================================================================================
+#Question 5:
+class Product:
+    
+    def __init__(self, product_id, name, price, stock, category):
+        self.product_id = product_id
+        self.name = name
+        self.price = price
+        self.stock = stock
+        self.category = category
+    
+    def add_stock(self, amount):
+        self.stock += amount
+    
+    def reduce_stock(self, amount):
+        if self.stock >= amount:
+            self.stock -= amount
+            return True
+        return False
+    
+    def apply_discount(self, percentage):
+        discount = self.price * (percentage / 100)
+        self.price = self.price - discount
+    
+    @property
+    def is_available(self):
+        return self.stock > 0
+    
+    def __str__(self):
+        return f"{self.name} ({self.product_id}) - ${self.price} - Stock: {self.stock}"
+    
+    def __repr__(self):
+        return f"Product({self.product_id}, {self.name}, ${self.price})"
+    
+    def __eq__(self, other):
+        return self.product_id == other.product_id
+    
+    def __hash__(self):
+        return hash(self.product_id)
+
+
+class Review:
+    
+    def __init__(self, user, rating, comment):
+        self.user = user
+        self.rating = rating
+        self.comment = comment
+    
+    def is_positive(self):
+        return self.rating >= 4
+
+
+class ProductWithReviews(Product):
+    
+    def __init__(self, product_id, name, price, stock, category):
+        super().__init__(product_id, name, price, stock, category)
+        self.reviews = []
+    
+    def add_review(self, review):
+        self.reviews.append(review)
+    
+    def average_rating(self):
+        if len(self.reviews) == 0:
+            return 0
+        
+        total = 0
+        for review in self.reviews:
+            total += review.rating
+        
+        return total / len(self.reviews)
+    
+    def get_review_summary(self):
+        if len(self.reviews) == 0:
+            return "No reviews"
+        
+        avg = self.average_rating()
+        
+        positive_count = 0
+        for review in self.reviews:
+            if review.is_positive():
+                positive_count += 1
+        
+        return f"{len(self.reviews)} reviews - Average: {avg}/5 - {positive_count} positive"
+
+
+class ShoppingCart:
+    
+    def __init__(self):
+        self.items = {}
+    
+    def add_item(self, product, quantity=1):
+        if product in self.items:
+            self.items[product] += quantity
+        else:
+            self.items[product] = quantity
+    
+    def remove_item(self, product):
+        if product in self.items:
+            del self.items[product]
+    
+    def update_quantity(self, product, new_quantity):
+        if product in self.items:
+            self.items[product] = new_quantity
+    
+    def get_total(self):
+        total = 0
+        for product, quantity in self.items.items():
+            total += product.price * quantity
+        return total
+    
+    def clear(self):
+        self.items = {}
+    
+    def __len__(self):
+        total_items = 0
+        for quantity in self.items.values():
+            total_items += quantity
+        return total_items
